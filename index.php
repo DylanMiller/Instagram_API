@@ -3,7 +3,7 @@
 	ini_set('default_socket_timeout', 300);
 	session_start();
 
-	define('client_ID', '477393f935964621b84185fb1c272017');
+	define('clientID', '477393f935964621b84185fb1c272017');
 	define('client_Secret', 'b3b9843feb9d412aab05bc61367737ef');
 	define('redirectURI', 'http://localhost:8888/appacademyapi/index.php');
 	define('ImageDirectory', 'pictographs/');
