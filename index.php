@@ -8,6 +8,17 @@
 	define('redirectURI', 'http://localhost:8888/appacademyapi/index.php');
 	define('ImageDirectory', 'pictographs/');
 
+	if isset(($_GET['code'])) {
+		$code = (($_GET['code']));
+		$url = 'https://api.instagram.com/oauth/access_token';
+		$access_token_settings = array('client_id' => clientID, 
+										'client_secret' => clientSecret,
+										'grant_type' => 'authorization_code',
+										'redirect_uri' => redirectURI,
+										'code' => $code
+										);
+	}
+
 ?>
 
 
