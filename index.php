@@ -3,10 +3,25 @@
 	ini_set('default_socket_timeout', 300);
 	session_start();
 
-	define('clientID', '477393f935964621b84185fb1c272017');
-	define('client_Secret', 'b3b9843feb9d412aab05bc61367737ef');
+	define('clientID', 'c73d173254d844b89d8117954f97d9ee');
+	define('client_Secret', '971766cd8c4f4af7b7a6ff36f32b68b0');
 	define('redirectURI', 'http://localhost:8888/appacademyapi/index.php');
 	define('ImageDirectory', 'pictographs/');
+
+	function connectToInstagram($url){
+		$ch = curl_init();
+
+		curl_setopt_array($ch, array(
+				CURLOPT_URL => $url,
+				CURLOPT_RETURNTRANSFER => true,
+				CURLOPT_SSL_VERIFYPEER => false,
+				CURLOPT_SSL_VERIFYHOST => 2,
+			));
+
+		$result = curl_exec($ch);
+		curl_close($ch);
+		return $result;
+	}
 
 		if (isset($_GET['code'])) {
 			$code = ($_GET['code']);
