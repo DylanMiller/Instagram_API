@@ -5,7 +5,7 @@
 
 	define('clientID', 'c73d173254d844b89d8117954f97d9ee');
 	define('client_Secret', '971766cd8c4f4af7b7a6ff36f32b68b0');
-	define('redirectURI', 'http://localhost:8888/appacademyapi/index.php');
+	define('redirectURI', 'http://localhost/appacademyapi/index.php');
 	define('ImageDirectory', 'pictographs/');
 
 	function connectToInstagram($url){
@@ -20,7 +20,17 @@
 
 		$result = curl_exec($ch);
 		curl_close($ch);
+		$results = json_decode($result, true);
+		getUserID($results['user']['username']);
 		return $result;
+	}
+
+	function getUserID($userName){
+		$url = "http://api.instagram.com/v1/users/search?q=".$userName."&client_id=".clientID;
+		$instagramInfo = connectToInstagram($url);
+		$result = json_decode($instagramInfo, true);
+
+		echo $results['data']['0']['id'];	
 	}
 
 		if (isset($_GET['code'])) {
