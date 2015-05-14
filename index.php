@@ -5,8 +5,8 @@
 	session_start();
 
 	define('clientID', 'c73d173254d844b89d8117954f97d9ee');
-	define('client_Secret', '971766cd8c4f4af7b7a6ff36f32b68b0');
-	define('redirectURI', 'http://localhost:8888/appacademyapi/index.php');
+	define('clientSecret', '971766cd8c4f4af7b7a6ff36f32b68b0');
+	define('redirectURI', 'http://localhost/appacademyapi/index.php');
 	define('ImageDirectory', 'pictographs/');
 
 	function connectToInstagram($url){
@@ -27,15 +27,15 @@
 		$results = json_decode($result, true);
 		$userName = $results['user']['username'];
 		$userID = getUserID($userName);
-	}entID;
+	
 		$instagramInfo = connectToInstagram($url);
 		$result = json_decode($instagramInfo, true);
 
-		echo $results['data']['0']['id'];	
+		return $results['data']['0']['id'];	
 	}
 
 	function printImages($userID){
-		$url = 'http://api.instagram.com/v1/users/'.$userID.'/media/recent?client_id='.clientID.'&count=5';
+		$url = 'https://api.instagram.com/v1/users/'.$userID.'/media/recent?client_id='.clientID.'&count=5';
 		$instagramInfo = connectToInstagram($url);
 		$results = json_decode($instagramInfo, true);
 
@@ -46,7 +46,7 @@
 	}
 
 		if (isset($_GET['code'])) {
-			$code = ($_GET['code']);
+			$code = $_GET['code'];
 			$url = 'https://api.instagram.com/oauth/access_token';
 			$access_token_settings = array('client_id' => clientID, 
 											'client_secret' => clientSecret,
@@ -83,10 +83,11 @@
 	<link rel="author" href="humans.txt">
 </head>
 <body>
-	<a href="https:api.instagram/oauth/authorize/?client_id=<?php echo clientID; ?>&redirect_uri=<?php echo redirectURI ?>&response_type=code">LOGIN</a>
+	<a href="https:api.instagram.com/oauth/authorize/?client_id=<?php echo clientID; ?>&redirect_uri=<?php echo redirectURI ?>&response_type=code">LOGIN</a>
 	<script type="js/main.js"></script>
-</body>
-</html>
+
 <?php
 }
 ?>
+</body>
+</html>
