@@ -20,7 +20,7 @@
 			));
 
 		$result = curl_exec($ch);
-
+	}
 	function getUserID($userName){
 		$url = "http://api.instagram.com/v1/users/search?q=".$userName."&client_id=".
 		curl_close($ch);
@@ -46,6 +46,7 @@
 			savePictures($image_url);
 		}
 	}
+
 	function savePictures($image_url){
 		echo $image_url.'<br>';
 		$filename = basename($image_url);
@@ -56,33 +57,31 @@
 	}
 
 
-		if (isset($_GET['code'])) {
-			$code = $_GET['code'];
-			$url = 'https://api.instagram.com/oauth/access_token';
-			$access_token_settings = array('client_id' => clientID, 
-											'client_secret' => clientSecret,
-											'grant_type' => 'authorization_code',
-											'redirect_uri' => redirectURI,
-											'code' => $code
-											);
+	if (isset($_GET['code'])) {
+		$code = $_GET['code'];
+		$url = 'https://api.instagram.com/oauth/access_token';
+		$access_token_settings = array('client_id' => clientID, 
+										'client_secret' => clientSecret,
+										'grant_type' => 'authorization_code',
+										'redirect_uri' => redirectURI,
+										'code' => $code
+										);
 
-			$curl = curl_init($url);
-			curl_setopt($curl, CURLOPT_POST, true);
-			curl_setopt($curl, CURLOPT_POSTFIELDS, $access_token_settings);
-			curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-			curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+		$curl = curl_init($url);
+		curl_setopt($curl, CURLOPT_POST, true);
+		curl_setopt($curl, CURLOPT_POSTFIELDS, $access_token_settings);
+		curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+		curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
 		
-	$result = curl_exec($curl);
-	curl_close($curl);
-	$results = json_decode($result, true);
-	$userName = $results['user']['username'];
-	$userID = getUserID($userName);
-	printImages($userID);
+		$result = curl_exec($curl);
+		curl_close($curl);
+		$results = json_decode($result, true);
+		$userName = $results['user']['username'];
+		$userID = getUserID($userName);
+		printImages($userID);
 	}
-	else{
+	else {
 ?>
-
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -94,11 +93,10 @@
 	<link rel="author" href="humans.txt">
 </head>
 <body>
-	<a href="https:api.instagram.com/oauth/authorize/?client_id=<?php echo clientID; ?>&redirect_uri=<?php echo redirectURI ?>&response_type=code">LOGIN</a>
+	<a href="https:api.instagram.com/oauth/authorize/?client_id=<?php echo clientID; ?>&redirect_uri=<?php echo redirectURI; ?>&response_type=code">LOGIN</a>
 	<script type="js/main.js"></script>
-
+</body>
+</html>
 <?php
 }
 ?>
-</body>
-</html>
